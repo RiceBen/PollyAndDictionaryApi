@@ -9,14 +9,14 @@ namespace PollyAndDictionaryApi.Controllers
 {
     public class HomeController : Controller
     {
-        private AWSService _awsService;
+        private AWSService awsService;
 
         public HomeController()
         {
-            this._awsService = new AWSService();
+            this.awsService = new AWSService();
         }
 
-        public AWSService Service { get { return _awsService; } }
+        public AWSService Service { get { return awsService; } }
 
         [HttpGet]
         public ActionResult Index()
@@ -27,9 +27,11 @@ namespace PollyAndDictionaryApi.Controllers
         [HttpGet]
         public JsonResult Query(string word)
         {
-            this.Service.GetVoice("My Polly Hello World");
+            this.Service.GetVoice(word);
 
-            return Json(new { Data = "My Polly " }, JsonRequestBehavior.AllowGet);
+            var consultResult = this.Service.GetDictionaryConsultResult(word);
+
+            return Json(new { Data = consultResult.ToObject(typeof(Object)) }, JsonRequestBehavior.AllowGet);
         }
     }
 }
