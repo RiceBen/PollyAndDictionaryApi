@@ -42,14 +42,14 @@ namespace PollyAndDictionaryApi.Services
                 OutputFormat = OutputFormat.Mp3
             };
 
-            string outputFileName = "D:\\speech.mp3";
+            string outputFileName = $"{System.Web.HttpContext.Current.Server.MapPath("~")}\\speech.mp3";
 
             try
             {
                 SynthesizeSpeechResponse synthesizeSpeechResult = client.SynthesizeSpeech(request);
                 byte[] buffer = new byte[2 * 1024];
                 int position = 0;
-                int readBytes = 2048;
+                int readBytes = 1024;
 
                 using (FileStream fileStream = new FileStream(outputFileName, FileMode.Truncate))
                 {
