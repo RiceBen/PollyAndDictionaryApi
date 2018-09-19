@@ -19,40 +19,39 @@
                 Audio
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg" id="dictionary-content">
-            </div>
-            <div class="col-sm">
-                @*<audio controls>
-                        <source src="speech.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>*@
-                <button type="button" class="btn btn-outline-primary">
-                    <span class="oi oi-play-circle"></span> Play
-                </button>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg" id="dictionary-content">
+                    <div class="col justify-content-start">
+                        <div class="card">
+                            <h5 class="card-title card-header"></h5>
+                        </div>
+                    </div>
+                    <div class="col justify-content-center">
+                        <div class="card">
+                            <h5 class="card-title card-header">Definition</h5>
+                            <div class="card-body">
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col justify-content-end">
+                        <div class="card">
+                            <h5 class="card-title card-header">Examples</h5>
+                            <div class="card-body">
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-outline-primary">
+                        <span class="oi oi-play-circle"></span> Play
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
     @section script{
-        <script>
-            (function () {
-                $('body > div.container.body-content > div > button').bind("click", function () {
-
-                    var word = $('body > div.container.body-content > div > input').val();
-                    $.get({
-                        url: '/Home/Query?word=' + word
-                    }).done(function (result) {
-                        $('#dictionary-content').html(JSON.stringify(result));
-                        console.log(result);
-                    });
-                });
-                $('#dictionary-container > div:nth-child(2) > div.col-sm > button').bind("click", function () {
-                    var url = "speech.mp3?v=" + new Date().getTime();
-                    var audio = new Audio(url);
-                    audio.load();
-                    audio.play();
-                })
-            })();
-        </script>
+        <script src="/JS/Views/dictionary.view.js"></script>
     }

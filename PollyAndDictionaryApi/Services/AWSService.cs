@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
 using Amazon;
 using Amazon.Polly;
 using Amazon.Polly.Model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace PollyAndDictionaryApi.Services
@@ -74,22 +76,24 @@ namespace PollyAndDictionaryApi.Services
         /// </summary>
         /// <param name="word">word</param>
         /// <returns>consult result</returns>
-        public JValue GetDictionaryConsultResult(string word)
+        public List<Models.OxfordEntriesEntity> GetDictionaryConsultResult(string word)
         {
             var request = (HttpWebRequest)WebRequest.Create($"https://{this.oxford_base_api}/entries/en/{word}");
 
             request.Headers["app_id"] = this.app_id;
             request.Headers["app_key"] = this.app_key;
             request.Method = "Get";
-            JValue content = null;
+            JObject content = null;
             using (var response = request.GetResponse())
             {
                 var stream = response.GetResponseStream();
-                var sr = new StreamReader(stream);
-                content = new JValue(sr.ReadToEnd());
+                var sr = new StreamReader(stream).ReadToEnd();
+                content = JObject.Parse(sr);
             }
 
-            return content;
+            var returnData = JsonConvert.DeserializeObject<List<Models.OxfordEntriesEntity>>(content["results"].ToString());
+
+            return returnData;
         }
     }
 }

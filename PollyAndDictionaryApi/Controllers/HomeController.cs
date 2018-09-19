@@ -31,7 +31,7 @@ namespace PollyAndDictionaryApi.Controllers
 
             var consultResult = this.Service.GetDictionaryConsultResult(word);
 
-            return Json(new { Data = consultResult.ToObject(typeof(Object)) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = consultResult }, JsonRequestBehavior.AllowGet);
         }
     }
 }
