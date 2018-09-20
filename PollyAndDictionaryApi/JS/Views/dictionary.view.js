@@ -1,6 +1,10 @@
 ﻿
 (function () {
+    $('#dictionary-container').hide();
+
     $('body > div.container.body-content > div > button').bind("click", function () {
+        $('#dictionary-container').show();
+        $('.modal').modal('show');
 
         var word = $('body > div.container.body-content > div > input').val();
         $.get({
@@ -39,9 +43,10 @@
                     });
                 });
             });
-
+            $('.modal').modal('hide');
             console.log(result);
         }).fail(function (xhrexception) {
+            $('.modal').modal('hide');
             alert('something went wrong! ' + JSON.stringify(xhrexception));
         });
     });

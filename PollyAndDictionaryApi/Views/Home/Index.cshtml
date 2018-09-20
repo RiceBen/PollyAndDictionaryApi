@@ -10,48 +10,42 @@
     </span>
     <input type="text" class="form-control" placeholder="type here" />
     <button type="button" class="btn btn-info">Consult</button>
-    <div class="container-fluid" id="dictionary-container">
+</div>
+<div class="modal"></div>
+<div class="container-fluid" id="dictionary-container">
+    <div class="container">
         <div class="row">
-            <div class="col-sm">
-                Consult Result
-            </div>
-            <div class="col-sm">
-                Audio
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg" id="dictionary-content">
-                    <div class="col justify-content-start">
-                        <div class="card">
-                            <h5 class="card-title card-header"></h5>
-                        </div>
+            <div class="col-lg" id="dictionary-content">
+                <div class="col justify-content-start">
+                    <div class="card">
+                        <h5 class="card-title card-header"></h5>
                     </div>
-                    <div class="col justify-content-center">
-                        <div class="card">
-                            <h5 class="card-title card-header">Definition</h5>
-                            <div class="card-body">
-                                <p class="card-text"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col justify-content-end">
-                        <div class="card">
-                            <h5 class="card-title card-header">Examples</h5>
-                            <div class="card-body">
-                                <p class="card-text"></p>
-                            </div>
+                </div>
+                <div class="col justify-content-center">
+                    <div class="card">
+                        <h5 class="card-title card-header">Definition</h5>
+                        <div class="card-body">
+                            <p class="card-text"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <button type="button" class="btn btn-outline-primary">
-                        <span class="oi oi-play-circle"></span> Play
-                    </button>
+                <div class="col justify-content-end">
+                    <div class="card">
+                        <h5 class="card-title card-header">Examples</h5>
+                        <div class="card-body">
+                            <p class="card-text"></p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-outline-primary">
+                    <span class="oi oi-play-circle"></span> Play
+                </button>
             </div>
         </div>
     </div>
-    @section script{
-        <script src="/JS/Views/dictionary.view.js"></script>
-    }
+</div>
+@section script{
+    <script src="/JS/Views/dictionary.view.js"></script>
+}
