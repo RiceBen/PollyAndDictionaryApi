@@ -20,7 +20,7 @@
         }
 
         $.get({
-            url: '/Home/Query?word=' + word
+            url: '/api/dictionary/V1/Query/' + word
         }).done(function (result) {
             var data = result.Data[0];
 

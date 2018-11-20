@@ -26,7 +26,11 @@ namespace PollyAndDictionaryApi.Controllers
         [HttpGet]
         public async Task<List<Models.OxfordEntriesEntity>> Query(string word)
         {
-            var consultResult = await this.dictionaryService.GetDictionaryConsultResultAsync(word);
+            var voiceTask = this.dictionaryService.GetVoiceAsync(word);
+
+            var consultTask = this.dictionaryService.GetDictionaryConsultResultAsync(word);
+
+            var consultResult = await consultTask;
 
             return consultResult;
         }

@@ -15,7 +15,7 @@ namespace PollyAndDictionaryApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FilterConfig.RegisterFilter(GlobalFilters.Filters);
             ViewEnginesConfig.RegisterViewEngines(ViewEngines.Engines);
-
+            
             GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
     }
