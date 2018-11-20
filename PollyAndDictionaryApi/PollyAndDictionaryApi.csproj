@@ -197,9 +197,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\CustomResponseHandler.cs" />
     <Compile Include="Models\EntryDetail.cs" />
     <Compile Include="Models\LexicalEntry.cs" />
     <Compile Include="Models\OxfordEntriesEntity.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\Sense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AWSService.cs" />

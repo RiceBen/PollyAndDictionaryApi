@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using PollyAndDictionaryApi.Handlers;
 
 namespace PollyAndDictionaryApi
 {
@@ -21,6 +22,8 @@ namespace PollyAndDictionaryApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.MessageHandlers.Add(new CustomResponseHandler());
         }
     }
 }
