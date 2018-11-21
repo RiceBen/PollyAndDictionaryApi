@@ -13,8 +13,10 @@ namespace PollyAndDictionaryApi
         /// <param name="enginCollection">ViewEnginCollection</param>
         public static void RegisterViewEngines(ViewEngineCollection enginCollection)
         {
+            //// clear all render engine
             enginCollection.Clear();
 
+            //// accept only Razor render engine
             enginCollection.Add(new RazorViewEngine());
         }
     }

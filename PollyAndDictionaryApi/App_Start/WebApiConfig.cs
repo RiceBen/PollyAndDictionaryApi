@@ -23,6 +23,7 @@ namespace PollyAndDictionaryApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            //// regist custom response entity
             config.MessageHandlers.Add(new CustomResponseHandler());
         }
     }

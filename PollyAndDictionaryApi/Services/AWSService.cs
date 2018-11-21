@@ -13,6 +13,9 @@ using PollyAndDictionaryApi.Models;
 
 namespace PollyAndDictionaryApi.Services
 {
+    /// <summary>
+    /// AWS Service
+    /// </summary>
     public class AWSService : IDictionaryService
     {
         private string access_key_id;
@@ -20,7 +23,11 @@ namespace PollyAndDictionaryApi.Services
         private string app_id;
         private string app_key;
         private string oxford_base_api;
+        private IAmazonPolly amazonPolly;
 
+        /// <summary>
+        /// Constructor of AWSService
+        /// </summary>
         public AWSService()
         {
             this.access_key_id = ConfigurationManager.AppSettings["AWS_access_key_id"];
@@ -31,17 +38,31 @@ namespace PollyAndDictionaryApi.Services
         }
 
         /// <summary>
+        /// Get AWS Amazon Polly Service
+        /// </summary>
+        public IAmazonPolly awsPollyService
+        {
+            get
+            {
+                if (amazonPolly == null)
+                {
+                    this.amazonPolly = new AmazonPollyClient(
+                        this.access_key_id,
+                        this.secret_access_key,
+                        RegionEndpoint.USEast2);
+                }
+
+                return amazonPolly;
+            }
+        }
+
+        /// <summary>
         /// Get Voice via 3rd Service
         /// Use AWS Polly Service
         /// </summary>
         /// <param name="word">Word</param>
         public void GetVoice(string word)
         {
-            var client = new AmazonPollyClient(
-                this.access_key_id,
-                this.secret_access_key,
-                RegionEndpoint.USEast2);
-
             SynthesizeSpeechRequest request = new SynthesizeSpeechRequest
             {
                 LanguageCode = LanguageCode.EnUS,
@@ -55,7 +76,7 @@ namespace PollyAndDictionaryApi.Services
 
             try
             {
-                SynthesizeSpeechResponse synthesizeSpeechResult = client.SynthesizeSpeech(request);
+                SynthesizeSpeechResponse synthesizeSpeechResult = this.awsPollyService.SynthesizeSpeech(request);
                 byte[] buffer = new byte[2 * 1024];
                 int position = 0;
                 int readBytes = 1024;
@@ -104,11 +125,11 @@ namespace PollyAndDictionaryApi.Services
 
                 return returnData;
             }
-            catch(WebException wex)
+            catch (WebException wex)
             {
                 if (wex.Status == WebExceptionStatus.ProtocolError)
                 {
-                    if(((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
+                    if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
                     {
                         return new List<Models.OxfordEntriesEntity>();
                     }
@@ -128,11 +149,6 @@ namespace PollyAndDictionaryApi.Services
         /// <param name="word">word</param>
         public async Task GetVoiceAsync(string word)
         {
-            var client = new AmazonPollyClient(
-                this.access_key_id,
-                this.secret_access_key,
-                RegionEndpoint.USEast2);
-
             SynthesizeSpeechRequest request = new SynthesizeSpeechRequest
             {
                 LanguageCode = LanguageCode.EnUS,
@@ -146,7 +162,7 @@ namespace PollyAndDictionaryApi.Services
 
             try
             {
-                SynthesizeSpeechResponse synthesizeSpeechResult = await client.SynthesizeSpeechAsync(request);
+                SynthesizeSpeechResponse synthesizeSpeechResult = await this.awsPollyService.SynthesizeSpeechAsync(request);
                 byte[] buffer = new byte[2 * 1024];
                 int position = 0;
                 int readBytes = 1024;
