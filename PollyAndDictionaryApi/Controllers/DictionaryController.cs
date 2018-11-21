@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 using PollyAndDictionaryApi.Services;
 
 namespace PollyAndDictionaryApi.Controllers
@@ -31,8 +28,21 @@ namespace PollyAndDictionaryApi.Controllers
             var consultTask = this.dictionaryService.GetDictionaryConsultResultAsync(word);
 
             await Task.WhenAll(voiceTask, consultTask);
-            
+
             return consultTask.Result;
+        }
+
+        [Route("V1/SyncQuery/{word}")]
+        [HttpGet]
+        public List<Models.OxfordEntriesEntity> SyncQuery(string word)
+        {
+            this.dictionaryService.GetVoice(word);
+
+            var consultResult = this.dictionaryService.GetDictionaryConsultResult(word);
+
+            this.dictionaryService.GetVoice(word);
+
+            return consultResult;
         }
     }
 }

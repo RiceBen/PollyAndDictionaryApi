@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using PollyAndDictionaryApi.Services;
 
 namespace PollyAndDictionaryApi.Controllers
@@ -22,16 +18,6 @@ namespace PollyAndDictionaryApi.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        [HttpGet]
-        public JsonResult Query(string word)
-        {
-            this.Service.GetVoice(word);
-
-            var consultResult = this.Service.GetDictionaryConsultResult(word);
-
-            return Json(new { Data = consultResult }, JsonRequestBehavior.AllowGet);
         }
     }
 }
