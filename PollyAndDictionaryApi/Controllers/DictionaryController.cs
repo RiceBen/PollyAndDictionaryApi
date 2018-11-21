@@ -30,9 +30,9 @@ namespace PollyAndDictionaryApi.Controllers
 
             var consultTask = this.dictionaryService.GetDictionaryConsultResultAsync(word);
 
-            var consultResult = await consultTask;
-
-            return consultResult;
+            await Task.WhenAll(voiceTask, consultTask);
+            
+            return consultTask.Result;
         }
     }
 }
