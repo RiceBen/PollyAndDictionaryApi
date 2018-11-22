@@ -22,6 +22,12 @@
         $.get({
             url: '/api/dictionary/V1/Query/' + word
         }).done(function (result) {
+            if (result.Data.length == 0) {
+                $('.modal').modal('hide');
+                alert('consult fail!');
+                return;
+            }
+
             var data = result.Data[0];
 
             displayWord.html(data.Word);
